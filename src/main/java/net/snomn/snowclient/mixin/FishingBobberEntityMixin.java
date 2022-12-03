@@ -4,7 +4,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.util.Hand;
-import net.snomn.snowclient.SnowClient;
+import net.snomn.snowclient.hack.misc.AutoFish;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,11 +19,13 @@ public class FishingBobberEntityMixin {
     @Inject(method = "onTrackedDataSet", at = @At("TAIL"))
     public void onTrackedDataSet(TrackedData<?> data, CallbackInfo ci) {
 
-        MinecraftClient client = MinecraftClient.getInstance();
 
-        if(caughtFish && SnowClient.autoFishingEnabled) {
-            //SnowClient.getInstance().autoFishing.setRecastRod(20);
-            client.interactionManager.interactItem(client.player, Hand.MAIN_HAND);
+        MinecraftClient mc = MinecraftClient.getInstance();
+
+        if (caughtFish && AutoFish.AutoFishEnabled) {
+            // in 1.19.2 mc.interactionManager.interactItem(mc.player, mc.world, Hand.MAIN_HAND); without "mc.world" so mc.interactionManager.interactItem(mc.player, Hand.MAIN_HAND);
+            AutoFish.RecastRodDelay();
+            mc.interactionManager.interactItem(mc.player, Hand.MAIN_HAND);
         }
     }
 }

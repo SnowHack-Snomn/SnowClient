@@ -6,9 +6,10 @@
   "mixins": [
   ],
   "client": [
-    "ExampleMixin",
     "ClientConnectionMixin",
-    "FishingBobberEntityMixin"
+    "FishingBobberEntityMixin",
+    "KeyboardMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

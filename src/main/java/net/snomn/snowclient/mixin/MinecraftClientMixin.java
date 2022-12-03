@@ -1,16 +1,17 @@
 package net.snomn.snowclient.mixin;
 
+import net.minecraft.client.MinecraftClient;
 import net.snomn.snowclient.SnowClient;
-import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(TitleScreen.class)
-public class ExampleMixin {
-	@Inject(at = @At("HEAD"), method = "init()V")
-	private void init(CallbackInfo info) {
-		SnowClient.LOGGER.info("This line is printed by an example mod mixin!");
-	}
+@Mixin(MinecraftClient.class)
+public class MinecraftClientMixin {
+
+    @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
+    public void onTick(CallbackInfo ci){
+        SnowClient.INSTANCE.onTick();
+    }
 }
