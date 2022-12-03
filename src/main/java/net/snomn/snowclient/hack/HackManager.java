@@ -46,5 +46,6 @@ public class HackManager {
         hacks.add(new AutoFish());
         hacks.add(new Sprint());
         hacks.add(new BoatFly());
+        hacks.add(new NoFall());
     }
 }
